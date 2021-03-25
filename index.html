@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Mine Sweeper</title>
+</head>
+<body onload="initGame()">
+    <h1>Minesweeper</h1>
+    <div class="timer">00:00</div>
+    <div class="difficuly">
+        <h3>Choose Difficulty:</h3>
+        <button onclick="chooseLvl(4, 2, 2)">Beginner</button>
+        <button onclick="chooseLvl(8, 12, 3)">Medium</button>
+        <button onclick="chooseLvl(12, 30, 3)">Expert</button>
+    </div>
+    <div class="game-smiley" onclick="initGame()"></div>
+    <div class="game-lives"><span class="game-lives"></span></div>
+
+    <div class="game-clues">
+        <span class="clue-1" onclick="activateClue(this)">💡</span>
+        <span class="clue-2" onclick="activateClue(this)">💡</span>
+        <span class="clue-3" onclick="activateClue(this)">💡</span>
+    </div>
+    <table>
+        <tbody>
+        </tbody>
+    </table>
+    <script src="./js/main.js"></script>
+</body>
+</html>

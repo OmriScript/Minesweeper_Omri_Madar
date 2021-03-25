@@ -1,0 +1,80 @@
+/* * {
+  box-sizing: border-box;
+} */
+
+body {
+  text-align: center;
+  font-size: 24px;
+}
+h1 {
+  color: rgb(69, 169, 226);
+}
+
+table {
+  padding: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+td {
+  border: 1px solid rgb(69, 169, 226);
+  width: 35px;
+  height: 35px;
+}
+
+td:hover {
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.clicked {
+  background-color: #eee;
+}
+
+.mine-clicked {
+  background-color: red;
+}
+
+.game-smiley {
+  cursor: pointer;
+  padding-top: 15px;
+}
+
+.game-lives {
+  color: red;
+  font-size: 35px;
+  margin-top: 15px;
+  padding: 0;
+  /* cursor: pointer; */
+  min-height: 50px;
+}
+
+button {
+  font-size: 20px;
+  outline: none;
+  background-color: white;
+  border: 1px solid rgb(69, 169, 226);
+  padding: 5px 10px;
+  margin-right: 20px;
+}
+
+button:hover {
+  background-color: rgb(69, 169, 226);
+  border: 1px solid white;
+  color: white;
+}
+
+.game-clues span {
+  /* margin-left: 10px; */
+  border: 3px solid white;
+  padding: 5px;
+  color: black;
+}
+
+.game-clues span:hover {
+  cursor: pointer;
+  outline: none;
+  /* padding: 5px; */
+  border: 3px solid rgb(248, 248, 209);
+  border-radius: 50%;
+}
