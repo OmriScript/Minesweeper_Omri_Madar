@@ -130,13 +130,11 @@ function cellClicked(elCell, i, j) {
     }
   } else if (cell.minesAroundCount) {
     // num cell clicked
-
     elCell.innerHTML = cell.minesAroundCount;
     gGame.shownCount++;
     checkGameOver();
-
-    // empty cell clicked
   } else if (!cell.minesAroundCount) {
+    // empty cell clicked
     gGame.shownCount++;
     checkGameOver();
     expandShown(gBoard, elCell, i, j);
@@ -165,9 +163,12 @@ function cellMarked(elCell, i, j) {
 // Game ends when all mines are marked, and all the other cells are shown
 function checkGameOver() {
   var emptyCells = gLevel.size * gLevel.size - gLevel.mines;
+  var elTimer = document.querySelector('.timer');
+  var time = elTimer.innerHTML;
   if (emptyCells === gGame.shownCount) {
     renderSmiley('Victory');
     gGame.isOn = false;
+    setBestScore(elTimer, time);
     clearInterval(gInterval);
   }
 }
@@ -185,15 +186,20 @@ function expandShown(board, elCell, rowIdx, colIdx) {
       // if not a number cell
       if (currCell.isMine || currCell.isMarked) {
         continue;
-        // number cell
-      } else if (currCell.minesAroundCount) {
-        if (currCell.isShown) return;
-        elCurrCell.innerHTML = currCell.minesAroundCount;
+      } else {
+        if (currCell.isShown) continue;
+        currCell.isShown = true;
+        elCurrCell.classList.add('clicked');
+        gGame.shownCount++;
+        checkGameOver();
+        if (currCell.minesAroundCount) {
+          // cell number is not 0
+          elCurrCell.innerHTML = currCell.minesAroundCount;
+        } else {
+          // cell number is 0. recursive full expand
+          expandShown(gBoard, elCurrCell, i, j);
+        }
       }
-      currCell.isShown = true;
-      elCurrCell.classList.add('clicked');
-      gGame.shownCount++;
-      checkGameOver();
     }
   }
 }
@@ -325,4 +331,26 @@ function startTimer() {
     timeStr += minsStr + secsStr;
   }
   elTimer.innerHTML = timeStr;
+}
+
+function setBestScore(elTimer, time) {
+  // get best score from timer
+  var currLvl =
+    gLevel.size === 4 ? 'beginner' : gLevel.size === 8 ? 'medium' : 'expert';
+
+  // if no bestTime for this lvl in localStorage, create it
+  if (!localStorage.getItem(currLvl)) {
+    localStorage.setItem(currLvl, time);
+  } else {
+    console.log('in else');
+    // there is a bestTime for this lvl
+    // if new bestTime is better than localStorage bestTime, set new bestTime
+    if (localStorage.getItem(currLvl) > time) {
+      localStorage.setItem(currLvl, time);
+    } else {
+      time = localStorage.getItem(currLvl);
+    }
+  }
+
+  elTimer.innerHTML = `Your best score at ${currLvl} level is: ${time}`;
 }
